@@ -32,4 +32,4 @@ def signup(request):
 
         customer = Customer(first_name=first_name, last_name=last_name,phone=phone,email=email,password=password)
         customer.register()
-        return HttpResponse("Create account successfully")
+        return HttpResponse("Your account has created successfully")
