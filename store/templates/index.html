@@ -22,7 +22,12 @@
                         <div class="card-body">
                         <p class="card-title">{{ product.name }}</p>
                         <p class="card-text">{{ product.price }} Tk</p>
-                        <a href="#" class="btn btn-success btn-sm float-right">Add To Cart</a>
+                        <!-- Add to cart form -->
+                        <form action="/" method="POST">
+                            {% csrf_token %}
+                            <input type="text" name="productId" value="{{ product.id }}" hidden>
+                            <input type="submit" class="btn btn-success btn-sm float-right" value="Add To Cart">
+                        </form>
                         </div>
                     </div>
                 </div>
