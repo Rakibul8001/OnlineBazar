@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load cart %}
+{% load custom_filter %}
 {% block content %}
 <div class="container-fluid mt-5">
     <div class="row">
@@ -17,11 +18,11 @@
             <div class="row mx-auto">
                 {% for product in products %}
                 <div class="col-md-4">
-                    <div class="card mx-auto mb-3" style="width: 18rem;">
+                    <div class="card mx-auto mb-3" id="{{ product.id }}" style="width: 18rem;">
                         <img class="card-img-top" src="{{ product.image.url }}" alt="Card image cap" height="300px">
                         <div class="card-body">
                         <p class="card-title">{{ product.name }}</p>
-                        <p class="card-text">{{ product.price }} Tk</p>
+                        <p class="card-text">{{ product.price|currency }} Tk</p>
                         <!-- {{product|is_in_cart:request.session.cart}} -->
                         </div>
                         <!-- Add to cart form -->
@@ -30,7 +31,7 @@
                             {% if product|is_in_cart:request.session.cart %}
                             <div class="row no-gutters">
                                 <!-- cart remove -->
-                                <form action="/" method="POST" class="col-lg-2">
+                                <form action="/#{{ product.id }}" method="POST" class="col-lg-2">
                                     {% csrf_token %}
                                     <input type="text" name="productId" value="{{ product.id }}" hidden>
                                     <input type="text" name="remove" value="True" hidden>
@@ -40,14 +41,14 @@
                                 <div class="text-center col">{{product|cart_quantity:request.session.cart}} in Cart</div>
 
                                 <!-- cart increase -->
-                                <form action="/" method="POST" class="col-lg-2">
+                                <form action="/#{{ product.id }}" method="POST" class="col-lg-2">
                                     {% csrf_token %}
                                     <input type="text" name="productId" value="{{ product.id }}" hidden>
                                     <input type="submit" value="+" class=" btn btn-block btn-secondary">
                                 </form>
                             </div>
                             {% else %}
-                            <form action="/" method="POST" class="btn-block">
+                            <form action="/#{{ product.id }}" method="POST" class="btn-block">
                                 {% csrf_token %}
                                 <input type="text" name="productId" value="{{ product.id }}" hidden>
                                 <input type="submit" class="btn btn-warning float-right form-control border" value="Add To Cart">

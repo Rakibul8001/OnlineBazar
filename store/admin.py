@@ -2,6 +2,7 @@ from django.contrib import admin
 from .models.product import Product
 from .models.category import Category
 from .models.customer import Customer
+from .models.orders import Order
 
 # Register your models here.
 class AdminProduct(admin.ModelAdmin):
@@ -16,3 +17,4 @@ class AdminCustomer(admin.ModelAdmin):
 admin.site.register(Product, AdminProduct)
 admin.site.register(Category,AdminCategory)
 admin.site.register(Customer,AdminCustomer)
+admin.site.register(Order)

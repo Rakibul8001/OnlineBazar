@@ -17,7 +17,7 @@ class Login(View):
             flag = check_password(password,customer.password)
             if flag:
                 request.session['customer_id']= customer.id
-                request.session['email'] = customer.email
+                # request.session['email'] = customer.email
                 #jodi password match hoy
                 return redirect('products-index')
             else:
@@ -26,3 +26,8 @@ class Login(View):
             error_message = 'Invalid email or password!!'
 
         return render(request, 'login.html',{'error':error_message})
+
+#Logout session
+def logout(request):
+    request.session.clear()
+    return redirect('login')

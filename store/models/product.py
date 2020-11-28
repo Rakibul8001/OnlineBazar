@@ -18,3 +18,8 @@ class Product(models.Model):
             return Product.objects.filter(category=category_id)
         else:
              return Product.objects.all()
+
+    @staticmethod
+    def get_products_by_id(ids):
+        #joto id ase list akare product chole asbe "id__in". cart views->go
+        return Product.objects.filter(id__in = ids)

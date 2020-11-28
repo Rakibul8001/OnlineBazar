@@ -1,5 +1,5 @@
 from django import template
-#decorator filter
+#decorator filter used
 register = template.Library()
 
 #product cart e ace ki na?
@@ -21,3 +21,16 @@ def cart_quantity(product,cart):
             return cart.get(id)
             
     return 0
+
+#cart product price
+@register.filter(name='total_price')
+def total_price(product,cart):
+    return product.price * cart_quantity(product,cart)
+
+#Total Cart Price Sum
+@register.filter(name='cart_total_price')
+def cart_total_price(products,cart):
+    sum = 0
+    for p in products:
+        sum += total_price(p,cart)
+    return sum

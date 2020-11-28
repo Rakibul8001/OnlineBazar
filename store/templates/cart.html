@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load cart %}
+{% load custom_filter %}
+{% block content %}
+<div class="container">
+    <div class="border rounded m-4 p-4">
+        <table class="table">
+            <div class="display-4">View Your Cart</div>
+            <thead>
+                <tr>
+                    <th>Sl_no.</th>
+                    <th>Image</th>
+                    <th>Title</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                {% for product in products %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td><img style="height: 80px;" src="{{ product.image.url }}" class="rounded-circle" alt=""></td>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.price|currency }}</td>
+                    <td>{{ product|cart_quantity:request.session.cart }}</td>
+                    <td>{{ product|total_price:request.session.cart|currency }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th colspan="4"></th>
+                    <th>Total Price</th>
+                    <th>{{ products|cart_total_price:request.session.cart|currency }}</th>
+                </tr>
+            </tfoot>
+        </table>
+        <div class="m-3 p-3">
+            <a href="#" data-toggle="modal" data-target="#exampleModal" class="btn btn-outline-info col-lg-3 float-right border rounded">Check out</a>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Check out Form</h5> <hr>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="m-2 p-2">
+                <form action='/check-out' method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                      <label for="">Address</label>
+                      <input type="text" name="address" id="" class="form-control form-control-sm" placeholder="" aria-describedby="helpId">
+                    </div>
+                    <div class="form-group">
+                      <label for="">Phone Number</label>
+                      <input type="text" name="phone" id="" class="form-control form-control-sm" placeholder="" aria-describedby="helpId">
+                    </div>
+                    <input type="submit" value="Check out" class="btn btn-outline-info col-lg-5 float-right border rounded">
+                </form>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
