@@ -9,5 +9,5 @@ class OrderView(View):
         customer = request.session.get('customer_id')
         orders = Order.get_order_by_customer(customer)
         print(orders)
-        return render(request,'orders.html')
+        return render(request,'orders.html',{'orders':orders})
         
