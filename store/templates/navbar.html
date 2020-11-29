@@ -12,6 +12,9 @@
       </ul>
       <ul class="navbar-nav my-2 my-lg-0">
         <!-- navbar links hide show -->
+        <li class="nav-item">
+          <a class="nav-link" href="/cart">Cart</a>
+        </li>
         {% if request.session.customer_id %}
         <li class="nav-item">
           <a class="nav-link" href="/orders">Orders</a>
@@ -20,9 +23,6 @@
           <a class="nav-link" href="/logout">Logout</a>
         </li>
         {% else %}
-        <li class="nav-item">
-          <a class="nav-link" href="/cart">Cart</a>
-        </li>
         <li class="nav-item">
           <a class="nav-link" href="{% url 'signup' %}">Signup</a>
         </li>

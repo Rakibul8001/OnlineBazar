@@ -11,3 +11,11 @@ class Order(models.Model):
     phone = models.CharField(max_length=50, default='', blank=True, null=True)
     address = models.CharField(max_length=50 ,default='', blank=True, null=True)
     date = models.DateField(default=datetime.datetime.today)
+
+    #Order save
+    def placeOrder(self):
+        self.save()
+
+    @staticmethod
+    def get_order_by_customer(customer_id):
+        return Order.objects.filter(customer = customer_id)

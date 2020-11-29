@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load cart %}
+{% load custom_filter %}
+{% block content %}
+<div class="container">
+    <div class="border rounded m-4 p-4">
+        <table class="table">
+            <div class="display-4">View Your Orders</div>
+            <thead>
+                <tr>
+                    <th>Sl_no.</th>
+                    <th>Image</th>
+                    <th>Title</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                {% for product in products %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td><img style="height: 80px;" src="{{ product.image.url }}" class="rounded-circle" alt=""></td>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.price|currency }}</td>
+                    <td>{{ product|cart_quantity:request.session.cart }}</td>
+                    <td>{{ product|total_price:request.session.cart|currency }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+{% endblock %}

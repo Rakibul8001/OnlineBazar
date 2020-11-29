@@ -22,7 +22,7 @@ class Index(View):
             'products':products,
             'categories':categories
         }
-        print('Your are: ',request.session.get('email'))
+        # print('Your are: ',request.session.get('email'))
         return render(request, 'index.html', context)
 
     def post(self,request):
