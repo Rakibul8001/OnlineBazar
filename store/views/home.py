@@ -48,3 +48,6 @@ class Index(View):
         request.session['cart'] = cart
         print(request.session['cart'])
         return redirect('products-index')
+
+def home(request):
+    return render(request,'home.html')

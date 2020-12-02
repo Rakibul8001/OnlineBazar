@@ -14,6 +14,7 @@ class AdminCategory(admin.ModelAdmin):
 class AdminCustomer(admin.ModelAdmin):
     list_display =['first_name','phone','email','password']
 
+
 admin.site.register(Product, AdminProduct)
 admin.site.register(Category,AdminCategory)
 admin.site.register(Customer,AdminCustomer)
